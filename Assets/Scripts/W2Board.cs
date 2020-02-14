@@ -5,17 +5,20 @@ using UnityEngine;
 public class W2Board : MonoBehaviour
 {
 	public GameObject player;
+	Vector3 initPos;
+	public Transform[] hazard;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-		var pos : Vector3 = transform.position;
+	// Start is called before the first frame update
+	void Start()
+	{
+		initPos = player.transform.position;
+
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-	    if (Input.GetKeyDown(KeyCode.A))
+	// Update is called once per frame
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.A))
 		{
 			player.transform.position += new Vector3(0, 0, 1);
 
@@ -45,10 +48,17 @@ public class W2Board : MonoBehaviour
 			player.transform.position += new Vector3(0, -1, 0);
 
 		}
-		if(Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetKeyDown(KeyCode.Z))
 		{
 			player.transform.position = new Vector3(7, 1, 7);
 
+		}
+		for (int i = 0; i < hazard.Length; i++)
+		{
+			if (hazard[i].position == player.transform.position)
+			{
+				player.transform.position = initPos;
+			}
 		}
 	}
 }
